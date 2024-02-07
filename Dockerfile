@@ -35,8 +35,9 @@ RUN \
     pip cache purge
 COPY config.json /stable-diffusion-webui/config.json
 
-# Copy the notebook with AUTOMATIC1111 start command
-COPY run_a1111.ipynb /stable-diffusion-webui/run_a1111.ipynb
+# Install deforum + controlnet
+RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
+RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
 
 # Launch jupyterlab
-CMD ["jupyter-lab", "--allow-root", "--ip", "0.0.0.0", "--NotebookApp.token=''", "--notebook-dir", "/", "--NotebookApp.allow_origin=*", "--NotebookApp.allow_remote_access=1"]
+CMD ["jupyter-lab", "--allow-root", "--ip", "0.0.0.0", "--NotebookApp.token=''", "--notebook-dir", "/", "--NotebookApp.allow_origin=*", "--NotebookApp.allow_remote_access=1", "&", "python", "/stable-diffusion-webui/launch.py", "--port", "3000", "--listen", "--enable-insecure-extension-access", "--xformers"]
