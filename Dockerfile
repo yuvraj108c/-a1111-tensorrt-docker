@@ -27,7 +27,7 @@ RUN \
     pip cache purge
 
 # Install TensorRT extension for AUTOMATIC1111 and configure the UI of AUTOMATIC1111
-RUN git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT /stable-diffusion-webui/extensions/Stable-Diffusion-WebUI-TensorRT
+
 RUN pip install tensorrt==8.6.1.post1 && pip cache purge
 
 COPY config.json /stable-diffusion-webui/config.json
