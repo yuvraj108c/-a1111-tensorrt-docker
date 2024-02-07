@@ -37,7 +37,7 @@ RUN chmod +x /stable-diffusion-webui/start.sh
 # Install deforum + controlnet
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
-RUN git -C ./stable-diffusion-webui/extensions clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-tensorrt.git
+RUN git -C /stable-diffusion-webui/extensions clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-tensorrt.git
 
 # Launch jupyterlab & a1111
 CMD ["/stable-diffusion-webui/start.sh"]
