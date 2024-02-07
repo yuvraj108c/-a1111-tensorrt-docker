@@ -35,6 +35,7 @@ RUN \
     pip cache purge
 COPY config.json /stable-diffusion-webui/config.json
 COPY start.sh /stable-diffusion-webui/start.sh
+RUN chmod +x /start.sh
 
 # Install deforum + controlnet
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
