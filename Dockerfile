@@ -34,10 +34,11 @@ RUN \
     pip install --pre --extra-index-url https://pypi.nvidia.com tensorrt==9.0.1.post11.dev4 --no-cache-dir && \
     pip cache purge
 COPY config.json /stable-diffusion-webui/config.json
+COPY start.sh /stable-diffusion-webui/start.sh
 
 # Install deforum + controlnet
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
 
 # Launch jupyterlab & a1111
-CMD jupyter-lab --allow-root --ip  0.0.0.0 --NotebookApp.token='' --notebook-dir / --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 && python /stable-diffusion-webui/launch.py --port  3000 --listen --enable-insecure-extension-access --xformers
+CMD ["/start.sh"]
