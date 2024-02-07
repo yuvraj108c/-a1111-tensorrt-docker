@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - RUN: bash free_disk_space.sh
+      - run: bash free_disk_space.sh
 
       - name: Checkout repository
         uses: actions/checkout@v3
