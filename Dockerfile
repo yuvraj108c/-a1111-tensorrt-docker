@@ -3,6 +3,10 @@ FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 # To assure python logging works properly
 ENV PYTHONUNBUFFERED=1
 
+COPY free_disk_space.sh /
+RUN chmod +x free_disk_space.sh
+RUN ./free_disk_space.sh
+
 # Install python3 and pip
 RUN apt update && apt install -y python3 wget python-is-python3
 RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
@@ -23,7 +27,6 @@ RUN \
         torchvision==0.15.2+cu118 \
         --extra-index-url https://download.pytorch.org/whl/cu118 && \
     venv_dir=- ./webui.sh -f --exit --skip-torch-cuda-test && \
-    pip install xformers==0.0.20 && \
     pip cache purge
 
 

@@ -7,10 +7,9 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
 
     steps:
-      - run: service docker start
       - name: Checkout repository
         uses: actions/checkout@v3
 
