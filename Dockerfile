@@ -26,7 +26,6 @@ RUN \
     pip install xformers==0.0.20 && \
     pip cache purge
 
-# Install TensorRT extension for AUTOMATIC1111 and configure the UI of AUTOMATIC1111
 
 RUN pip install tensorrt==8.6.1.post1 && pip cache purge
 
@@ -37,7 +36,14 @@ RUN chmod +x /stable-diffusion-webui/start.sh
 # Install deforum + controlnet
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
+
+
+# Install TensorRT extension for AUTOMATIC1111 and configure the UI of AUTOMATIC1111
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-tensorrt.git
+RUN \
+    cd /stable-diffusion-webui/extensions/stable-diffusion-webui-tensorrt && \
+    wget https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/secure/8.6.1/tars/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz && \
+    tar -xf TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz
 
 # Launch jupyterlab & a1111
 CMD ["/stable-diffusion-webui/start.sh"]
