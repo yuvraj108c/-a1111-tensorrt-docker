@@ -55,7 +55,7 @@ RUN cd /stable-diffusion-webui && \
     pip cache purge
 
 # Download models
-RUN wget https://huggingface.co/jzli/DreamShaper-8/resolve/main/dreamshaper_8.safetensors -O /stable-diffusion-webui/models/Stable-diffusion/dreamshaper_8.safetensors
+RUN pwd && wget https://huggingface.co/jzli/DreamShaper-8/resolve/main/dreamshaper_8.safetensors
     #   && \
     # wget -P /stable-diffusion-webui/models/Stable-diffusion "https://huggingface.co/yuvraj108c/sd-models/resolve/main/deliberate.safetensors" && \
     # mkdir /stable-diffusion-webui/models/Unet-trt && \
