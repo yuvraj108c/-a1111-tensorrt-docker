@@ -41,4 +41,4 @@ RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-a
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
 
 # Launch jupyterlab & a1111
-CMD ["/start.sh"]
+CMD ["/stable-diffusion-webui/start.sh"]
