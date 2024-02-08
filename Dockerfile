@@ -48,7 +48,7 @@ RUN cd /stable-diffusion-webui && \
 # Install TensorRT
 RUN cd /stable-diffusion-webui && \
     git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT extensions/tensorrt && \
-    git checkout 9e9b21f8b9c2534845025a712602e2801519eefa && \
+    cd extensions/tensorrt && git checkout 9e9b21f8b9c2534845025a712602e2801519eefa && \
     pip install onnx polygraphy==0.49.0 onnxruntime==1.16.1 && \
     pip install onnx-graphsurgeon --extra-index-url https://pypi.ngc.nvidia.com && \
     pip install --pre --extra-index-url https://pypi.nvidia.com tensorrt==9.0.1.post11.dev4 --no-cache-dir && \
