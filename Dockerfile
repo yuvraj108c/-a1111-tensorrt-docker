@@ -17,19 +17,21 @@ RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 RUN pip install jupyterlab==4.0.7 && pip cache purge
 
 # Install Automatic1111's WebUI (11 oct 2023 version)
-RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
-    cd stable-diffusion-webui && \
+RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git
+WORKDIR /stable-diffusion-webui
+
+RUN \
+    cd /stable-diffusion-webui && \
     git checkout dbb10fbd8c2dd4f3ca83a1d2e15e188799074ce4 && \
     git clone https://github.com/deforum-art/sd-webui-deforum extensions/deforum && \
     git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
     git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT extensions/tensorrt && \
     cd extensions/tensorrt && git checkout 9e9b21f8b9c2534845025a712602e2801519eefa && \
-    python -c 'from modules import launch_utils; launch_utils.prepare_environment()' --xformers --skip-torch-cuda-test && \
+    cd /stable-diffusion-webui && python -c 'from modules import launch_utils; launch_utils.prepare_environment()' --xformers --skip-torch-cuda-test && \
     pip install httpx==0.24.1 && \
     pip cache purge
 
 COPY config.json /stable-diffusion-webui/config.json
-WORKDIR /stable-diffusion-webui
 
 # Download models
 RUN \ 
