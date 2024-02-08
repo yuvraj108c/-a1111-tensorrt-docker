@@ -52,6 +52,7 @@ RUN cd /stable-diffusion-webui && \
     pip install onnx polygraphy==0.49.0 onnxruntime==1.16.1 && \
     pip install onnx-graphsurgeon --extra-index-url https://pypi.ngc.nvidia.com && \
     pip install --pre --extra-index-url https://pypi.nvidia.com tensorrt==9.0.1.post11.dev4 --no-cache-dir && \
+    pip install httpx==0.24.1 && \
     pip cache purge
 
 # Download models
