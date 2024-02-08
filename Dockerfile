@@ -10,7 +10,7 @@ RUN apt update -y && \
     libglib2.0-0 libglu1-mesa-dev google-perftools
 
 # Install python3 and pip
-RUN apt update && apt install -y python3 wget python-is-python3
+RUN apt update && apt install -y python3 wget python-is-python3 git
 RUN wget https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 
 # Install jupyterlab
