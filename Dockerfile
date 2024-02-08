@@ -37,6 +37,9 @@ COPY config.json /stable-diffusion-webui/config.json
 COPY start.sh /stable-diffusion-webui/start.sh
 RUN chmod +x /stable-diffusion-webui/start.sh
 
+# Download models
+RUN wget -P /stable-diffusion-webui/models/Stable-diffusion https://huggingface.co/jzli/DreamShaper-8/resolve/main/dreamshaper_8.safetensors
+
 # Install deforum + controlnet
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
