@@ -57,6 +57,7 @@ RUN cd /stable-diffusion-webui && \
 # Download models
 RUN \ 
     cd /stable-diffusion-webui/models && \
+    mkdir -p Stable-diffusion && \
     wget -P Stable-diffusion "https://huggingface.co/jzli/DreamShaper-8/resolve/main/dreamshaper_8.safetensors" && \
     wget -P Stable-diffusion "https://huggingface.co/yuvraj108c/sd-models/resolve/main/deliberate.safetensors" && \
     mkdir Unet-trt && \
