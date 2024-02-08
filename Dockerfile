@@ -64,9 +64,5 @@ RUN \
     wget -P Unet-trt "https://huggingface.co/yuvraj108c/nvidia-sd-trt-models-rtx-4090/resolve/main/dreamshaper_8_9d40847d_cc89_sample%3D1x4x56x56%2B2x4x64x64%2B2x4x96x96-timesteps%3D1%2B2%2B2-encoder_hidden_states%3D1x77x768%2B2x77x768%2B2x154x768.trt" && \
     wget -P Unet-trt https://huggingface.co/yuvraj108c/nvidia-sd-trt-models-rtx-4090/resolve/main/model.json
 
-# Start script
-COPY start.sh /stable-diffusion-webui/start.sh
-RUN chmod +x /stable-diffusion-webui/start.sh
-
 # Launch jupyterlab & a1111
-CMD ["/stable-diffusion-webui/start.sh"]
+CMD "nohup jupyter-lab --allow-root --ip  0.0.0.0 --NotebookApp.token='' --notebook-dir / --NotebookApp.allow_origin=* --NotebookApp.allow_remote_access=1 & python /stable-diffusion-webui/launch.py --port  3000 --listen --enable-insecure-extension-access --xformers"
