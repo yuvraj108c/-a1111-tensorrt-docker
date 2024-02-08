@@ -20,40 +20,16 @@ RUN pip install jupyterlab==4.0.7 && pip cache purge
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git && \
     cd stable-diffusion-webui && \
     git checkout dbb10fbd8c2dd4f3ca83a1d2e15e188799074ce4 && \
-    pip install \
-        torch==2.0.1+cu118 \
-        torchvision==0.15.2+cu118 \
-        --extra-index-url https://download.pytorch.org/whl/cu118 && \
-    venv_dir=- ./webui.sh -f --exit --skip-torch-cuda-test && \
-    pip install xformers==0.0.20 && \
+    git clone https://github.com/deforum-art/sd-webui-deforum extensions/deforum && \
+    git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
+    git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT extensions/tensorrt && \
+    cd extensions/tensorrt && git checkout 9e9b21f8b9c2534845025a712602e2801519eefa && \
+    python -c 'from modules import launch_utils; launch_utils.prepare_environment()' --xformers --skip-torch-cuda-test && \
+    pip install httpx==0.24.1 && \
     pip cache purge
 
 COPY config.json /stable-diffusion-webui/config.json
 WORKDIR /stable-diffusion-webui
-
-# Install DeForum
-RUN cd /stable-diffusion-webui && \
-    git clone https://github.com/deforum-art/sd-webui-deforum extensions/deforum && \
-    cd extensions/deforum && \
-    pip install -r requirements.txt && \
-    pip cache purge
-
-# Install ControlNet
-RUN cd /stable-diffusion-webui && \
-    git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
-    cd extensions/sd-webui-controlnet && \
-    pip install -r requirements.txt && \
-    pip cache purge
-
-# Install TensorRT
-RUN cd /stable-diffusion-webui && \
-    git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT extensions/tensorrt && \
-    cd extensions/tensorrt && git checkout 9e9b21f8b9c2534845025a712602e2801519eefa && \
-    pip install onnx polygraphy==0.49.0 onnxruntime==1.16.1 && \
-    pip install onnx-graphsurgeon --extra-index-url https://pypi.ngc.nvidia.com && \
-    pip install --pre --extra-index-url https://pypi.nvidia.com tensorrt==9.0.1.post11.dev4 --no-cache-dir && \
-    pip install httpx==0.24.1 && \
-    pip cache purge
 
 # Download models
 RUN \ 
