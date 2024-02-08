@@ -27,8 +27,8 @@ RUN \
     git clone https://github.com/Mikubill/sd-webui-controlnet.git extensions/sd-webui-controlnet && \
     git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT extensions/tensorrt && \
     cd extensions/tensorrt && git checkout 9e9b21f8b9c2534845025a712602e2801519eefa && \
-    cd /stable-diffusion-webui && python -c 'from modules import launch_utils; launch_utils.prepare_environment()' --xformers --skip-torch-cuda-test && \
     pip install httpx==0.24.1 && \
+    cd /stable-diffusion-webui && python -c 'from modules import launch_utils; launch_utils.prepare_environment()' --xformers --skip-torch-cuda-test && \
     pip cache purge
 
 COPY config.json /stable-diffusion-webui/config.json
