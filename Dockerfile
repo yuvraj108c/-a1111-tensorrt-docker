@@ -57,9 +57,8 @@ RUN cd /stable-diffusion-webui && \
 # Download models
 RUN \ 
     cd /stable-diffusion-webui/models && \
-    mkdir Stable-diffusion && \
-    wget -P Stable-diffusion https://huggingface.co/jzli/DreamShaper-8/resolve/main/dreamshaper_8.safetensors && \
-    wget -P Stable-diffusion https://huggingface.co/yuvraj108c/sd-models/resolve/main/deliberate.safetensors && \
+    wget -O Stable-diffusion/dreamshaper_8.safetensors https://huggingface.co/jzli/DreamShaper-8/resolve/main/dreamshaper_8.safetensors && \
+    wget -O Stable-diffusion/deliberate.safetensors https://huggingface.co/yuvraj108c/sd-models/resolve/main/deliberate.safetensors && \
     mkdir Unet-trt && \
     wget -P Unet-trt "https://huggingface.co/yuvraj108c/nvidia-sd-trt-models-rtx-4090/resolve/main/deliberate_10ec4b29_cc89_sample%3D1x4x56x56%2B2x4x64x64%2B2x4x96x96-timesteps%3D1%2B2%2B2-encoder_hidden_states%3D1x77x768%2B2x77x768%2B2x154x768.trt" && \
     wget -P Unet-trt "https://huggingface.co/yuvraj108c/nvidia-sd-trt-models-rtx-4090/resolve/main/dreamshaper_8_9d40847d_cc89_sample%3D1x4x56x56%2B2x4x64x64%2B2x4x96x96-timesteps%3D1%2B2%2B2-encoder_hidden_states%3D1x77x768%2B2x77x768%2B2x154x768.trt" && \
