@@ -23,26 +23,22 @@ RUN \
         torchvision==0.15.2+cu118 \
         --extra-index-url https://download.pytorch.org/whl/cu118 && \
     venv_dir=- ./webui.sh -f --exit --skip-torch-cuda-test && \
+    pip install xformers==0.0.20 && \
     pip cache purge
 
-
-RUN pip install tensorrt==8.6.1.post1 && pip cache purge
-
+# Install TensorRT extension for AUTOMATIC1111 and configure the UI of AUTOMATIC1111
+RUN git clone https://github.com/NVIDIA/Stable-Diffusion-WebUI-TensorRT /stable-diffusion-webui/extensions/Stable-Diffusion-WebUI-TensorRT
+RUN \
+    pip install onnx polygraphy==0.49.0 onnxruntime==1.16.1 && \
+    pip install onnx-graphsurgeon --extra-index-url https://pypi.ngc.nvidia.com && \
+    pip install --pre --extra-index-url https://pypi.nvidia.com tensorrt==9.0.1.post11.dev4 --no-cache-dir && \
+    pip cache purge
 COPY config.json /stable-diffusion-webui/config.json
 COPY start.sh /stable-diffusion-webui/start.sh
-RUN chmod +x /stable-diffusion-webui/start.sh
 
 # Install deforum + controlnet
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/deforum-art/sd-webui-deforum.git
 RUN git -C /stable-diffusion-webui/extensions clone https://github.com/Mikubill/sd-webui-controlnet.git
 
-
-# Install TensorRT extension for AUTOMATIC1111 and configure the UI of AUTOMATIC1111
-RUN git -C /stable-diffusion-webui/extensions clone https://github.com/AUTOMATIC1111/stable-diffusion-webui-tensorrt.git
-RUN \
-    cd /stable-diffusion-webui/extensions/stable-diffusion-webui-tensorrt && \
-    wget https://developer.nvidia.com/downloads/compute/machine-learning/tensorrt/secure/8.6.1/tars/TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz && \
-    tar -xf TensorRT-8.6.1.6.Linux.x86_64-gnu.cuda-11.8.tar.gz
-
 # Launch jupyterlab & a1111
-CMD ["/stable-diffusion-webui/start.sh"]
+CMD ["/start.sh"]
