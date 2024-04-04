@@ -47,5 +47,10 @@ RUN \
 COPY start.sh /stable-diffusion-webui/start.sh
 RUN chmod +x /stable-diffusion-webui/start.sh
 
+RUN pip install basicsr
+
+RUN cd /stable-diffusion-webui/models && \
+    wget -P Deforum "https://github.com/intel-isl/DPT/releases/download/1_0/dpt_large-midas-2f21e586.pt"
+
 # Launch jupyterlab & a1111
 CMD ["/stable-diffusion-webui/start.sh"]
